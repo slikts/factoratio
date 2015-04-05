@@ -2281,17 +2281,6 @@ webix.debug_code(function() {
       logger.log("XHTTP:", xhttp);
     }
   });
-  webix.ready(function() {
-    var path = document.location.href;
-    if (path.indexOf("file:") === 0) {
-      if (webix.message) webix.message({
-        type: "error",
-        text: "Please open sample by http,<br>not as file://",
-        expire: -1
-      });
-      else window.alert("Please open sample by http, not as file://");
-    }
-  });
 });
 //UI interface
 webix.BaseBind = {
