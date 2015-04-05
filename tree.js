@@ -12,10 +12,8 @@ function Tree(name) {
     if (state.value != state.old) {
       setModified(line, id, true);
       line.factorySpeed = tree.calcSpeed(line.item, line.factory, line.inputInserters, line.outputInserters);
-    } else {
-      setModified(line, id, false);
-      tree.webixTree.refresh()
     }
+    tree.webixTree.refresh()
   });
   function setModified(line, id, modified) {
     line[id.column + "Modified"] = modified
