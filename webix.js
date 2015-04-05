@@ -11,19 +11,24 @@ var ui_scheme = {
       fillspace: true
     }, {
       view: "button",
-      type: "icon",
-      icon: "eraser",
-      width: 36,
+      label: "Setup",
+      width: 60,
+      popup: "setup"
+    }, {
+      view: "button",
+      label: "Refresh",
+      width: 60,
       click: function() {
-        logic.reset();
+        logic.updateRecipes();
       }
     }, {
       view: "button",
-      type: "icon",
-      icon: "cog",
-      width: 36,
-      value: "Setup",
-      popup: "setup"
+      type: "danger",
+      label: "Reset",
+      width: 60,
+      click: function() {
+        logic.reset();
+      }
     }]
   }, {
     cols: [{
@@ -57,17 +62,17 @@ var ui_scheme = {
       }
     }, {
       view: "button",
-      type: "iconButton",
-      icon: "plus",
+      type: "form",
+      label: "Add",
       width: 40,
       click: function() {
         logic.addRecipe($$("selected_recipe").getValue());
       }
     }, {
       view: "button",
-      type: "iconButton",
-      icon: "minus",
-      width: 40,
+      type: "danger",
+      label: "Remove",
+      width: 60,
       click: function() {
         logic.removeRecipe($$("selected_recipe").getValue());
       }
