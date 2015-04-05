@@ -2,65 +2,76 @@
  * Created by synopia on 27.06.2014.
  */
 var ui_scheme = {
+  type: "space",
   rows: [{
-    view: "label",
-    label: "<strong>Factoratio</strong>"
+    view: "toolbar",
+    cols: [{
+      view: "label",
+      label: "<strong>Factoratio</strong>",
+      fillspace: true
+    }, {
+      view: "button",
+      type: "icon",
+      icon: "eraser",
+      width: 36,
+      click: function() {
+        logic.reset();
+      }
+    }, {
+      view: "button",
+      type: "icon",
+      icon: "cog",
+      width: 36,
+      value: "Setup",
+      popup: "setup"
+    }]
   }, {
     cols: [{
-      view: "select",
+      view: "combo",
       label: "Recipe",
-      options: selectRecipes,
+      suggest: {
+        data: selectRecipes
+      },
       id: "selected_recipe"
     }, {
-      view: "slider",
+      view: "counter",
       min: 1,
       max: 120,
+      width: 103,
       id: "selected_recipe_speed",
-      title: webix.template("#value#"),
       on: {
         onChange: function(newv, oldv) {
           logic.updateTargetSpeed(newv);
-        },
-        onSliderDrag: function() {
-          logic.updateTargetSpeed(this.getValue());
         }
       }
     }, {
-      view: "select",
+      view: "richselect",
       id: "selected_unit",
-      options: [{id:0, value:"u/s"}, {id:1, value:"u/m"}, {id:2, value:"u/h"}],
-      value:1,
+      options: [{id:1, value:"u/s"}, {id:2, value:"u/m"}, {id:3, value:"u/h"}],
+      value:2,
       width: 100,
       on: {
         onChange: function(newv, oldv) {
           logic.updateTargetSpeed($$("selected_recipe_speed").getValue());
         }
       }
-    }]
-  }, {
-    cols: [{
+    }, {
       view: "button",
-      value: "+",
+      type: "iconButton",
+      icon: "plus",
+      width: 40,
       click: function() {
         logic.addRecipe($$("selected_recipe").getValue());
       }
     }, {
       view: "button",
-      value: "-",
+      type: "iconButton",
+      icon: "minus",
+      width: 40,
       click: function() {
         logic.removeRecipe($$("selected_recipe").getValue());
       }
-    }, {
-      view: "button",
-      value: "Reset",
-      click: function() {
-        logic.reset();
-      }
-    }, {
-      view: "button",
-      value: "Setup",
-      popup: "setup"
-    }]
+    }, ]
   }, {
     view: "tabview",
     id: "tabs",
@@ -73,6 +84,7 @@ var ui_scheme = {
         editable: true,
         editaction: 'click',
         tooltip: true,
+        scrollX:false,
         columns: [{
           id: "targetSpeed",
           header: "u/m",
@@ -82,7 +94,8 @@ var ui_scheme = {
         }, {
           id: "name",
           header: "Item",
-          template: "{common.treetable()} #value#",
+          fillspace: 1,
+          template: "{common.space()}{common.icon()} &nbsp;#value#",
           width: 300,
           tooltip: false
         }, {
@@ -101,7 +114,7 @@ var ui_scheme = {
           id: "factory",
           header: "Factory",
           editor: 'myselect',
-          width: 300,
+          width: 250,
           template: helpers.renderFactory,
           options: logic.selectFactories,
           tooltip: tooltips.factory
@@ -109,7 +122,7 @@ var ui_scheme = {
           id: "inputInserters",
           header: "Input inserters",
           editor: 'myselect',
-          width: 300,
+          width: 250,
           template: helpers.renderInputInserters,
           options: logic.selectInserters,
           tooltip: tooltips.inputInserters
@@ -117,7 +130,7 @@ var ui_scheme = {
           id: "outputInserters",
           header: "Output inserters",
           editor: 'myselect',
-          width: 300,
+          width: 250,
           template: helpers.renderOutputInserters,
           options: logic.selectInserters,
           tooltip: tooltips.outputInserters
@@ -140,7 +153,7 @@ var ui_scheme = {
         }, {
           id: "name",
           header: "Item",
-          template: "{common.treetable()} #value#",
+          template: "{common.space()}{common.icon()} &nbsp;#value#",
           width: 300,
           tooltip: false
         }, {
@@ -159,7 +172,7 @@ var ui_scheme = {
           id: "factory",
           header: "Factory",
           editor: 'myselect',
-          width: 300,
+          width: 250,
           template: helpers.renderFactory,
           options: logic.selectFactories,
           tooltip: tooltips.factory
@@ -167,7 +180,7 @@ var ui_scheme = {
           id: "inputInserters",
           header: "Input inserters",
           editor: 'myselect',
-          width: 300,
+          width: 250,
           template: helpers.renderInputInserters,
           options: logic.selectInserters,
           tooltip: tooltips.inputInserters
@@ -175,7 +188,7 @@ var ui_scheme = {
           id: "outputInserters",
           header: "Output inserters",
           editor: 'myselect',
-          width: 300,
+          width: 250,
           template: helpers.renderOutputInserters,
           options: logic.selectInserters,
           tooltip: tooltips.outputInserters
@@ -225,7 +238,7 @@ var ui_setup = {
     id: "setup_tree",
     threeState: true,
     editable: true,
-    template: "{common.icon()} {common.checkbox()} {common.folder()} #name#",
+    template: "{common.icon()} {common.checkbox()} &nbsp; #name#",
     data: selectableData
   }
 };
