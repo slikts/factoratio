@@ -16,13 +16,24 @@ var ui_scheme = {
       min: 1,
       max: 120,
       id: "selected_recipe_speed",
-      title: webix.template("#value# u/m"),
+      title: webix.template("#value#"),
       on: {
         onChange: function(newv, oldv) {
           logic.updateTargetSpeed(newv);
         },
         onSliderDrag: function() {
           logic.updateTargetSpeed(this.getValue());
+        }
+      }
+    }, {
+      view: "select",
+      id: "selected_unit",
+      options: [{id:0, value:"u/s"}, {id:1, value:"u/m"}, {id:2, value:"u/h"}],
+      value:1,
+      width: 100,
+      on: {
+        onChange: function(newv, oldv) {
+          logic.updateTargetSpeed($$("selected_recipe_speed").getValue());
         }
       }
     }]
