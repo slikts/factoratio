@@ -224,22 +224,29 @@ function buildData(factories, categories) {
 }
 var selectableData = []
 selectableData.push({name: "Assembling Machines", open: true, data: buildData(factories, ["crafting"])});
-selectableData.push({name: "Mining", data: buildData(factories, ["stone_mining", "iron_mining"])});
-selectableData.push({name: "Smelting", data: buildData(factories, ["smelting"])});
-selectableData.push({name: "Fluid", data: buildData(factories, ["oil-processing", "fluid", "chemistry"])});
-selectableData.push({name: "Inserters", data: buildData(inserters)});
+selectableData.push({name: "Mining", open: true, data: buildData(factories, ["stone_mining", "iron_mining"])});
+selectableData.push({name: "Smelting", open: true, data: buildData(factories, ["smelting"])});
+selectableData.push({name: "Fluid", open: true, data: buildData(factories, ["oil-processing", "fluid", "chemistry"])});
+selectableData.push({name: "Inserters", open: true, data: buildData(inserters)});
 var ui_setup = {
   view: "popup",
   id: "setup",
   position: "center",
-  width: 600,
-  height: 400,
+  width: 400,
+  minHeight: 300,
+  maxHeight: 650,
   body: {
     view: "tree",
     id: "setup_tree",
     threeState: true,
     editable: true,
-    template: "{common.icon()} {common.checkbox()} &nbsp; #name#",
+    borderless: true,
+    template: "{common.space()} {common.checkbox()} &nbsp; #name#",
+    on: {
+      onItemCheck: function() {
+        logic.updateRecipes();
+      }
+    },
     data: selectableData
   }
 };
