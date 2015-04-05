@@ -88,6 +88,7 @@ var ui_scheme = {
         columns: [{
           id: "targetSpeed",
           header: "u/m",
+          template: helpers.renderSpeed,
           format: helpers.speedFormat,
           width: 100,
           tooltip: false

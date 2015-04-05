@@ -35,7 +35,12 @@ var helpers = {
     }
   },
   renderSpeed: function(line, common) {
-    return helpers.speedFormat(line.targetSpeed)
+    if (line.factorySpeed) {
+      var count = line.targetSpeed / line.factorySpeed.total;
+      return helpers.speedFormat(line.targetSpeed) + " (" + helpers.speedFormat(line.factorySpeed.total * Math.ceil(count)) + ")"
+    } else {
+      return helpers.speedFormat(line.targetSpeed)
+    }
   },
   renderSpeedRatio: function(line, common) {
     if (line.$level == 1) {
@@ -47,7 +52,7 @@ var helpers = {
   renderCount: function(line, common) {
     if (line.factorySpeed) {
       var count = line.targetSpeed / line.factorySpeed.total;
-      return helpers.countFormat(count);
+      return helpers.countFormat(count) + " (" + helpers.countFormat(Math.ceil(count)) + ")";
     } else {
       return ""
     }
