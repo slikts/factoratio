@@ -38,7 +38,7 @@ function Tree(name) {
       var maxSpeed = Math.min(maxInputSpeed, maxOutputSpeed);
       var factorySpeed = factories[factory].speed * itemSpeed;
       var total = Math.min(factorySpeed, maxSpeed);
-      return {total: total, factory: factorySpeed, input: maxInputSpeed, output: maxOutputSpeed, inputCount: inputCount, outputCount: outputCount};
+      return {total: factorySpeed, factory: factorySpeed, input: maxInputSpeed, output: maxOutputSpeed, inputCount: inputCount, outputCount: outputCount};
     } else {
       return undefined;
     }
