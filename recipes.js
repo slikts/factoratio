@@ -450,7 +450,7 @@ recipes = {
     "id": "basic_accumulator",
     "name": "Basic accumulator",
     "resultCount": 1,
-    "speed": 2,
+    "speed": 5,
     "category": "crafting",
     "ingredients": [
       ["iron_plate", 2.0],
@@ -1735,7 +1735,7 @@ recipes = {
   "sulfur": {
     "id": "sulfur",
     "name": "Sulfur",
-    "resultCount": 1,
+    "resultCount": 2,
     "speed": 1.0,
     "category": "chemistry",
     "ingredients": [
