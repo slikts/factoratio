@@ -33,10 +33,20 @@ function Tree(name) {
       outputCount = 1;
     }
     if (factories[factory]) {
+      var factorySpeed;
+      if (resources[item] !== undefined && factories[factory].speed == 'calculate') {
+        // factorySpeed = (resources[item].miningTime / (factories[factory].miningPower - resources[item].hardness) * factories[factory].miningSpeed) * itemSpeed;
+        factorySpeed = (factories[factory].miningPower - resources[item].hardness) * factories[factory].miningSpeed / resources[item].miningTime;
+        console.log('calcSpeed', item, factory, factorySpeed);
+        console.log(resources[item].miningTime, factories[factory].miningPower, resources[item].hardness, factories[factory].miningSpeed);
+        console.log(resources[item], factories[factory]);
+      } else {
+        factorySpeed = factories[factory].speed * itemSpeed;
+      }
+
       var maxInputSpeed = (inputInserters ? inserters[inputInserters].speed * 60 : 1000000) / inputCount;
       var maxOutputSpeed = (outputInserters ? inserters[outputInserters].speed * 60 : 1000000) / outputCount;
       var maxSpeed = Math.min(maxInputSpeed, maxOutputSpeed);
-      var factorySpeed = factories[factory].speed * itemSpeed;
       var total = Math.min(factorySpeed, maxSpeed);
       return {total: factorySpeed, factory: factorySpeed, input: maxInputSpeed, output: maxOutputSpeed, inputCount: inputCount, outputCount: outputCount};
     } else {

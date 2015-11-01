@@ -64,9 +64,17 @@ var logic = {
       itemSpeed = recipes[item].speed;
     }
     $.each(factories, function(index, factory) {
+      var factorySpeed;
+      if (resources[item] !== undefined && factory.speed == 'calculate') {
+        console.log(factory, resources[item]);
+        // factorySpeed = (resources[item].miningTime / (factory.miningPower - resources[item].hardness) * factory.miningSpeed) * itemSpeed;
+        factorySpeed = (factory.miningPower - resources[item].hardness) * factory.miningSpeed / resources[item].miningTime;
+      } else {
+        factorySpeed = factory.speed * itemSpeed;
+      }
       selectableFactories.push({
         id: factory.id,
-        value: factory.name + " (" + helpers.formatNumber(itemSpeed * factory.speed, 60) + " u/m)"
+        value: factory.name + " (" + helpers.formatNumber(factorySpeed, 60) + " u/m)"
       });
     });
     return selectableFactories;
