@@ -41,7 +41,7 @@ function Tree(name) {
         console.log(resources[item].miningTime, factories[factory].miningPower, resources[item].hardness, factories[factory].miningSpeed);
         console.log(resources[item], factories[factory]);
       } else {
-        factorySpeed = factories[factory].speed * itemSpeed;
+        factorySpeed = factories[factory].speed * itemSpeed * recipes[item].resultCount;
       }
 
       var maxInputSpeed = (inputInserters ? inserters[inputInserters].speed * 60 : 1000000) / inputCount;
