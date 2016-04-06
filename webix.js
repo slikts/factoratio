@@ -202,15 +202,15 @@ var ui_scheme = {
     }]
   }]
 };
-function buildData(factories, categories) {
+function buildData(factories, categories, notcategories) {
   var result = [];
   $.each(factories, function(index, factory) {
-    var found = false;
+    var found = notcategories;
     if (categories) {
       for (var i = 0; i < factory.categories.length; i++) {
         var category = factory.categories[i];
         if (categories.indexOf(category) != -1) {
-          found = true;
+          found = !notcategories;
           break;
         }
       }
@@ -228,10 +228,11 @@ function buildData(factories, categories) {
 }
 var selectableData = []
 selectableData.push({name: "Assembling Machines", open: true, data: buildData(factories, ["crafting"])});
-selectableData.push({name: "Mining", open: true, data: buildData(factories, ["stone_mining", "iron_mining"])});
+selectableData.push({name: "Mining", open: true, data: buildData(factories, ["basic-solid"])});
 selectableData.push({name: "Smelting", open: true, data: buildData(factories, ["smelting"])});
-selectableData.push({name: "Fluid", open: true, data: buildData(factories, ["oil-processing", "fluid", "chemistry"])});
+selectableData.push({name: "Fluid", open: true, data: buildData(factories, ["basic-fluid", "oil-processing", "fluid", "chemistry"])});
 selectableData.push({name: "Inserters", open: true, data: buildData(inserters)});
+selectableData.push({name: "Other", open: true, data: buildData(factories, ["basic-fluid", "oil-processing", "fluid", "chemistry", "smelting", "basic-solid", "crafting"], true)});
 var ui_setup = {
   view: "popup",
   id: "setup",
